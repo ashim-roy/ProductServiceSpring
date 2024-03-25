@@ -75,4 +75,11 @@ getBody() is a method provided by the ResponseEntity class. It returns the body 
     public void updateProductById() {
     }
 
+    public FakeStoreProductDto updateProductById(Long id, FakeStoreProductDto fakeSToreProductDtoFromProduct) {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        ResponseEntity<FakeStoreProductDto> responseEntity
+                = restTemplate.exchange(specificProductURL, HttpMethod.PUT, null, FakeStoreProductDto.class, id, fakeSToreProductDtoFromProduct);
+
+        return responseEntity.getBody();
+    }
 }

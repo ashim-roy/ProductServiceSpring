@@ -56,8 +56,9 @@ public class FakeStoreProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProductById() {
-
+    public Product updateProductById(Long id, Product productDetails){
+        return getProductFromFakeSToreProductDto(
+                fakeStoreClient.updateProductById(id, getFakeSToreProductDtoFromProduct(productDetails)));
     }
     /*
     Request Flow:
@@ -73,7 +74,7 @@ with service methods acting as intermediaries for handling business logic and co
     //convert DTO to product
     private Product getProductFromFakeSToreProductDto(FakeStoreProductDto fakeStoreProductDto) {
         Product product = new Product();
-        product.setId(fakeStoreProductDto.getId());
+        //product.setId(fakeStoreProductDto.getId());
         product.setTitle(fakeStoreProductDto.getTitle());
         product.setDescription(fakeStoreProductDto.getDescription());
         Category category = new Category();
@@ -85,7 +86,7 @@ with service methods acting as intermediaries for handling business logic and co
     }
 
     //Reverse Mapper to convert product to dto.
-    //I will get product from client.. but the fakestore API understands fakestoreDTO..
+    //I will get product from client. but the fakestore API understands fakestoreDTO.
     private FakeStoreProductDto getFakeSToreProductDtoFromProduct(Product product) {
         FakeStoreProductDto fakeStoreProductDto = new FakeStoreProductDto();
         //we will not have the id from client..
